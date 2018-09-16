@@ -3,16 +3,16 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import LoginScreen from '../screens/LoginScreen';
+import DoctorScreen from '../screens/DoctorScreen';
+import PatientScreen from '../screens/PatientScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const LoginStack = createStackNavigator({
+  Login: LoginScreen,
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+LoginStack.navigationOptions = {
+  tabBarLabel: 'Login',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -25,12 +25,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const DoctorStack = createStackNavigator({
+  Doctor: DoctorScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+DoctorStack.navigationOptions = {
+  tabBarLabel: 'Doctor',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -39,12 +39,12 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const PatientStack = createStackNavigator({
+  Patient: PatientScreen,
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+PatientStack.navigationOptions = {
+  tabBarLabel: 'Patient',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -54,7 +54,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  LoginStack,
+  DoctorStack,
+  PatientStack,
 });
