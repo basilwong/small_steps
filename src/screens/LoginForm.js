@@ -5,13 +5,19 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
+  Alert
 } from "react-native";
 
 // firebase
 
 export default class LoginForm extends Component {
   state = { username: "", password: "" };
+
+  onPressSignUp() {
+    Alert.alert("Sign Up Done.. Check your Email!");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -56,6 +62,12 @@ export default class LoginForm extends Component {
             <Text style={styles.buttonText}>LOGIN AS THERAPIST</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => this.onPressSignUp()}
+        >
+          <Text style={styles.buttonText}>SIGN UP</Text>
+        </TouchableOpacity>
       </View>
     );
   }
