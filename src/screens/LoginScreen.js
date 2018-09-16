@@ -9,6 +9,9 @@ import {
 import LoginForm from "./LoginForm";
 
 export default class Login extends Component {
+  static navigationOptions = {
+    title: "Back to Start"
+  };
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>

@@ -9,7 +9,7 @@ import { createStackNavigator } from "react-navigation";
 
 class Start extends React.Component {
   static navigationOptions = {
-    title: "Welcome"
+    opacity: 0.2
   };
   render() {
     return (
