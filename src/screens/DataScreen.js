@@ -17,7 +17,7 @@ export default class Login extends Component {
           <Text style={styles.description}> Your therapist on the go!</Text>
         </View>
         <View style={styles.formContainer}>
-          <LoginForm navigation={this.props.navigation} />
+          <LoginForm />
         </View>
       </KeyboardAvoidingView>
     );

@@ -1,27 +1,50 @@
-import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoDoctorView } from '@expo/samples';
+import React, { Component } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  KeyboardAvoidingView
+} from "react-native";
+import DataScreen from "./DataScreen";
+import { createBottomTabNavigator } from "react-navigation";
 
-export default class DoctorScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Doctor',
-  };
-
+class DoctorMain extends Component {
   render() {
     return (
-      <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoDoctorView and replace it with your
-           * content, we just wanted to provide you with some helpful Doctor */}
-        <ExpoDoctorView />
-      </ScrollView>
+      <View style={styles.formContainer}>
+        <Text>hello</Text>
+      </View>
     );
   }
 }
 
+const DoctorTab = createBottomTabNavigator({
+  Patients: { screen: DoctorMain },
+  Trends: { screen: DataScreen }
+});
+
+export default DoctorTab;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
+    backgroundColor: "#3498db"
   },
+  logoContainer: {
+    alignItems: "center",
+    flexGrow: 1,
+    justifyContent: "center"
+  },
+  logo: {
+    width: 120,
+    height: 120
+  },
+  description: {
+    color: "white",
+    marginTop: 10,
+    width: 160,
+    textAlign: "center",
+    opacity: 0.9
+  }
 });

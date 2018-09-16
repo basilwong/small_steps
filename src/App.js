@@ -1,62 +1,58 @@
-import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
-import AppNavigator from './navigation/AppNavigator';
+import React from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
+import LoginScreen from "./screens/LoginScreen";
+import PatientScreen from "./screens/PatientScreen";
+import DoctorScreen from "./screens/DoctorScreen";
+import TrendsScreen from "./screens/TrendsScreen";
+import DataScreen from "./screens/DataScreen";
+import { createStackNavigator } from "react-navigation";
 
-export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
+class Start extends React.Component {
+  static navigationOptions = {
+    title: "Welcome"
   };
-
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      );
-    } else {
-      return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}> Welcome to Therapy Journal </Text>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Start"
+            onPress={() => this.props.navigation.navigate("Login")}
+          />
         </View>
-      );
-    }
+      </View>
+    );
   }
-
-  _loadResourcesAsync = async () => {
-    return Promise.all([
-      Asset.loadAsync([
-        require('./assets/images/robot-dev.png'),
-        require('./assets/images/robot-prod.png'),
-      ]),
-      Font.loadAsync({
-        // This is the font that we are using for our tab bar
-        ...Icon.Ionicons.font,
-        // We include SpaceMono because we use it in HomeScreen.js. Feel free
-        // to remove this if you are not using it in your app
-        'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      }),
-    ]);
-  };
-
-  _handleLoadingError = error => {
-    // In this case, you might want to report the error to your error
-    // reporting service, for example Sentry
-    console.warn(error);
-  };
-
-  _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
-  };
 }
+
+const App = createStackNavigator({
+  Home: { screen: Start },
+  Login: { screen: LoginScreen },
+  Journal: { screen: PatientScreen },
+  Doctor: { screen: DoctorScreen },
+  Trend: { screen: TrendsScreen }
+});
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center"
   },
+  buttonContainer: {
+    margin: 20
+  },
+  title: {
+    color: "grey",
+    fontSize: 25,
+    fontWeight: "bold"
+  },
+  subtitle: {
+    color: "grey",
+    fontWeight: "200"
+  }
 });
