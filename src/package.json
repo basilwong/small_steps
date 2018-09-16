@@ -17,7 +17,12 @@
     "expo": "^30.0.1",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
-    "react-navigation": "^2.9.3"
+    "react-native-advanced-forms": "^1.1.6",
+    "react-native-chart-kit": "^1.1.6",
+    "react-native-form-generator": "^0.9.9",
+    "react-native-svg": "^7.0.2",
+    "react-navigation": "^2.9.3",
+    "victory-native": "^30.4.0"
   },
   "devDependencies": {
     "jest-expo": "30.0.0"
