@@ -10,7 +10,12 @@ import {
 } from "react-native";
 import LoginForm from "./LoginForm";
 import qs from "qs";
-// client_secret: '9212fdc8b676dea1e1980a870c100b35'
+/*import RNFS from "react-native-fs";
+
+var path = "./data.json";*/
+
+const client_id = "22D6PQ";
+const client_secret = "9212fdc8b676dea1e1980a870c100b35";
 
 function OAuth(client_id, cb) {
   // Listen to redirection
@@ -31,7 +36,7 @@ function OAuth(client_id, cb) {
   // Call OAuth https://dev.fitbit.com/build/reference/web-api/oauth2/
   const oauthurl = 'https://www.fitbit.com/oauth2/authorize?' +
     qs.stringify({
-      client_id: "22D6PQ",
+      client_id: client_id,
 	  response_type: 'token',
 	  scope: 'heartrate location',
 	  redirect_uri: 'http://127.0.0.1:8000/',
@@ -52,13 +57,20 @@ function getData(access_token) {
     },
   }
   ).then((res) => {
+	console.log(`res: ${JSON.stringify(res)}`);
     return res.json()
     }).then((res) => {
 	  console.log(`res: ${JSON.stringify(res)}`);
-	  // get the url
-var url = window.location.href;
 	  
-	  	  alert(url);
+// write the file
+/*RNFS.writeFile(path, 'Lorem ipsum dolor sit amet', 'utf8')
+.then((success) => {
+ console.log('FILE WRITTEN!');
+})
+.catch((err) => {
+ console.log(err.message);
+})*/
+	  
     }).catch((err) => {
       console.error('Error: ', err);
     });
@@ -67,30 +79,32 @@ var url = window.location.href;
 export default class FlatListBasics extends Component {
   // Called after your data is inserted into the tree
   componentDidMount() {
-    OAuth("22D6PQ", getData);
+    OAuth(client_id, getData);
   }
 
+  constructor(props) {
+	  super(props);
+	  this.state = {
+		data: [
+			{ key: "85" },
+			{ key: "90" },
+			{ key: "60" },
+			{ key: "40" },
+			{ key: "100"},
+			{ key: "110"}
+		]
+	  };
+  }
+  
+  _renderItem = data => {
+	  return <Text style={styles.row}>{data.item.key}</Text>;
+  };
+  
   render() {
     return (
-      <View style={styles.formContainer}>
-        <Text>Current heart rate: </Text>
+      <View style={styles.container}>
+        <FlatList data={this.state.data} renderItem={this._renderItem} />
       </View>
-	  
-      /*<View style={styles.container}>
-        <FlatList
-          data={[
-            {key: 'Devin'},
-            {key: 'Jackson'},
-            {key: 'James'},
-            {key: 'Joel'},
-            {key: 'John'},
-            {key: 'Jillian'},
-            {key: 'Jimmy'},
-            {key: 'Julie'},
-          ]}
-          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-        />
-      </View>*/
     );
   }
 }
@@ -101,23 +115,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#3498db"
   },
-  logoContainer: {
-    alignItems: "center",
-    flexGrow: 1,
-    justifyContent: "center"
-  },
-  logo: {
-    width: 120,
-    height: 120
-  },
-  description: {
-    color: "white",
-    marginTop: 10,
-    width: 160,
-    textAlign: "center",
-    opacity: 0.9
-  },
-  item: {
-	  color: "green"
+  row: {
+	  padding: 42,
+	  borderWidth: 1,
+	  borderColor: "#DDDDDD"
   }
 });
