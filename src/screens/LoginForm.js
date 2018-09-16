@@ -8,6 +8,8 @@ import {
   StatusBar
 } from "react-native";
 
+// firebase
+
 export default class LoginForm extends Component {
   state = { username: "", password: "" };
   render() {

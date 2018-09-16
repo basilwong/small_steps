@@ -6,6 +6,15 @@ import DoctorScreen from "./screens/DoctorScreen";
 import TrendsScreen from "./screens/TrendsScreen";
 import DataScreen from "./screens/DataScreen";
 import { createStackNavigator } from "react-navigation";
+import * as firebase from 'firebase';
+
+const firebaseConfig = {
+  apiKey: "<YOUR-API-KEY>",
+  authDomain: "<YOUR-AUTH-DOMAIN>",
+  databaseURL: "<YOUR-DATABASE-URL>",
+  storageBucket: "<YOUR-STORAGE-BUCKET>"
+};
+firebase.initializeApp(firebaseConfig);
 
 class Start extends React.Component {
   static navigationOptions = {
