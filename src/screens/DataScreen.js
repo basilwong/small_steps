@@ -6,13 +6,12 @@ import {
   Image,
   KeyboardAvoidingView,
   Linking,
-  FlatList
+  FlatList,
+  AsyncStorage
 } from "react-native";
 import LoginForm from "./LoginForm";
 import qs from "qs";
-/*import RNFS from "react-native-fs";
 
-var path = "./data.json";*/
 
 const client_id = "22D6PQ";
 const client_secret = "9212fdc8b676dea1e1980a870c100b35";
@@ -57,20 +56,12 @@ function getData(access_token) {
     },
   }
   ).then((res) => {
-	console.log(`res: ${JSON.stringify(res)}`);
+	// Save today's heart rate data (json) in the key heartRate
+	storeItem(this.state.heartRates, JSON.stringify(res));
+	
     return res.json()
     }).then((res) => {
 	  console.log(`res: ${JSON.stringify(res)}`);
-	  
-// write the file
-/*RNFS.writeFile(path, 'Lorem ipsum dolor sit amet', 'utf8')
-.then((success) => {
- console.log('FILE WRITTEN!');
-})
-.catch((err) => {
- console.log(err.message);
-})*/
-	  
     }).catch((err) => {
       console.error('Error: ', err);
     });
@@ -81,17 +72,40 @@ export default class FlatListBasics extends Component {
   componentDidMount() {
     OAuth(client_id, getData);
   }
+   
+  async storeItem(key, item) {
+    try {
+      //we want to wait for the Promise returned by AsyncStorage.setItem()
+      //to be resolved to the actual value before returning the value
+      var jsonOfItem = await AsyncStorage.setItem(key, JSON.stringify(item));
+      return jsonOfItem;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async retrieveItem(key) {
+    try {
+      const retrievedItem =  await AsyncStorage.getItem(key);
+      const item = JSON.parse(retrievedItem);
+      return item;
+    } catch (error) {
+      console.log(error.message);
+    }
+    return
+  }
 
   constructor(props) {
 	  super(props);
 	  this.state = {
+		heartRates: [],
 		data: [
-			{ key: "85" },
-			{ key: "90" },
-			{ key: "60" },
-			{ key: "40" },
-			{ key: "100"},
-			{ key: "110"}
+	      { key: "85" },
+		  { key: "90" },
+		  { key: "60" },
+		  { key: "40" },
+		  { key: "100"},
+		  { key: "110"}
 		]
 	  };
   }
@@ -102,9 +116,18 @@ export default class FlatListBasics extends Component {
   
   render() {
     return (
-      <View style={styles.container}>
-        <FlatList data={this.state.data} renderItem={this._renderItem} />
-      </View>
+	/*<Text>
+	var abc = (this.retrieveItem(this.state.heartRates).then((numbers) => {
+	  
+	}).catch(function(error) {
+	  console.log('Promise is rejected with error: ') // No semicolon
+	})();
+	console.log(abc);
+	</Text>*/
+	
+    <View style={styles.container}>
+      <FlatList data={this.state.data} renderItem={this._renderItem} />
+    </View>
     );
   }
 }
