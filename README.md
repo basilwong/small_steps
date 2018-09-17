@@ -19,6 +19,10 @@ npm install expo-cli --global
   - Run:
   
 ```
+npm install
+```
+then
+```
 expo start
 ```
 
