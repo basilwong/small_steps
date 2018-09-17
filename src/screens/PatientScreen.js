@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   View,
+  ScrollView,
   Text,
   StyleSheet,
   KeyboardAvoidingView,
@@ -32,7 +33,7 @@ class FillIn extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <KeyboardAvoidingView style={{ flex: 1 }}>
         <View
           style={{
             backgroundColor: "powderblue",
@@ -251,7 +252,7 @@ class FillIn extends Component {
             <Text style={styles.Numbers}>Submit</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

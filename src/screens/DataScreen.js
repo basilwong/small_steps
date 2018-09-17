@@ -6,18 +6,17 @@ import {
   Image,
   KeyboardAvoidingView
 } from "react-native";
-import LoginForm from "./LoginForm";
 
-export default class Login extends Component {
+export default class Data extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
           <Image style={styles.logo} source={require("../img/Logo.png")} />
-          <Text style={styles.description}> Your therapist on the go!</Text>
+          <Text style={styles.description}>Sorry, not connected to FitBit!</Text>
         </View>
         <View style={styles.formContainer}>
-          <LoginForm />
+
         </View>
       </KeyboardAvoidingView>
     );
