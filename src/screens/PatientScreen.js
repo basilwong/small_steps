@@ -12,6 +12,8 @@ import {
 import DataScreen from "./DataScreen";
 import TrendsScreen from "./TrendsScreen";
 import { createBottomTabNavigator } from "react-navigation";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Button } from 'react-native';
 
 class FillIn extends Component {
   constructor(props) {
@@ -26,19 +28,37 @@ class FillIn extends Component {
     };
   }
   onPressSubmit() {
-    Alert.alert("Log Submitted!");
+    Alert.alert("Log Submitted");
     console.log(this.state);
     console.log(JSON.stringify(this.state));
   }
 
   render() {
     return (
-      <KeyboardAvoidingView style={{ flex: 1 }}>
-        <View
+    <KeyboardAwareScrollView
+      style={{ backgroundColor: 'blue' }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      contentContainerStyle={styles.container}
+      scrollEnabled={true}
+    >     
+	<KeyboardAwareScrollView 
+		style={{ flex: 1, backgroundColor: 'rgb(255, 255, 255)' }}
+		scrollEnabled={true}
+		>
+		<TextInput
+			style={{padding: 10, fontSize: 32}}
+			placeholder="Log Notes..."
+			onChangeText={text => this.setState({ text })}
+			placeholderTextColor="skyblue"
+		/>
+		<Text style={{padding: 10, fontSize: 42}}>
+		</Text>
+	</KeyboardAwareScrollView>	
+		<View
           style={{
-            backgroundColor: "powderblue",
+            backgroundColor: "skyblue",
             flexDirection: "row",
-            justifyContent: "space-between"
+            justifyContent: "space-evenly"
           }}
         >
           <Text style={styles.description}>Stress Level</Text>
@@ -73,12 +93,13 @@ class FillIn extends Component {
             <Text style={styles.Numbers}>5</Text>
           </TouchableOpacity>
         </View>
-        <View
+        
+		<View
           style={{
             flex: 1,
-            backgroundColor: "skyblue",
+            backgroundColor: "deepskyblue",
             flexDirection: "row",
-            justifyContent: "space-between"
+            justifyContent: "space-evenly"
           }}
         >
           <Text style={styles.description}>Anxiety Level</Text>
@@ -116,9 +137,9 @@ class FillIn extends Component {
         <View
           style={{
             flex: 1,
-            backgroundColor: "steelblue",
+            backgroundColor: "skyblue",
             flexDirection: "row",
-            justifyContent: "space-between"
+            justifyContent: "space-evenly"
           }}
         >
           <Text style={styles.description}>Breathing</Text>
@@ -156,9 +177,9 @@ class FillIn extends Component {
         <View
           style={{
             flex: 1,
-            backgroundColor: "darkblue",
+            backgroundColor: "deepskyblue",
             flexDirection: "row",
-            justifyContent: "space-between"
+            justifyContent: "space-evenly"
           }}
         >
           <Text style={styles.description}>Shivering</Text>
@@ -196,9 +217,9 @@ class FillIn extends Component {
         <View
           style={{
             flex: 1,
-            backgroundColor: "deepskyblue",
+            backgroundColor: "skyblue",
             flexDirection: "row",
-            justifyContent: "space-between"
+            justifyContent: "space-evenly"
           }}
         >
           <Text style={styles.description}>Overall Severity</Text>
@@ -233,26 +254,14 @@ class FillIn extends Component {
             <Text style={styles.Numbers}>5</Text>
           </TouchableOpacity>
         </View>
-        <KeyboardAvoidingView behavior="padding" style={styles.container}>
-          <View style={{ flex: 2, backgroundColor: "dodgerblue" }}>
-            <Text>Comments:</Text>
-            <TextInput
-              style={{ height: 40 }}
-              placeholder="Write your Comments and Observations Here..."
-              onChangeText={text => this.setState({ text })}
-              placeholderTextColor="rgba(255,255,255,0.8)"
-            />
-          </View>
-        </KeyboardAvoidingView>
-        <View style={{ flex: 1, backgroundColor: "slategray" }}>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={() => this.onPressSubmit()}
-          >
-            <Text style={styles.Numbers}>Submit</Text>
-          </TouchableOpacity>
+        <View style={{ flex: 1, backgroundColor: "rgb(255, 255, 255)", padding: 10 }}>
+			<Button
+			  onPress={() => this.onPressSubmit()}
+			  title="Submit"
+			  color="steelblue"
+			/>
         </View>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     );
   }
 }
@@ -266,6 +275,13 @@ const PaitientTab = createBottomTabNavigator({
 export default PaitientTab;
 
 const styles = StyleSheet.create({
+  notes: {
+	color: "black",
+    marginTop: 10,
+    width: 125,
+    opacity: 0.7,
+    fontWeight: "700" 
+  },
   description: {
     color: "black",
     marginTop: 10,
@@ -276,7 +292,7 @@ const styles = StyleSheet.create({
   Numbers: {
     padding: 20,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     color: "black",
     fontWeight: "900"
   },

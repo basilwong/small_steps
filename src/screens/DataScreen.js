@@ -12,7 +12,7 @@ export default class Data extends Component {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.logoContainer}>
-          <Image style={styles.logo} source={require("../img/Logo.png")} />
+          <Image style={styles.logo} source={require("../img/ss_logo.png")} />
           <Text style={styles.description}>Sorry, not connected to FitBit!</Text>
         </View>
         <View style={styles.formContainer}>
